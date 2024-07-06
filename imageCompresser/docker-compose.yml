@@ -1,0 +1,29 @@
+version: "3.0"
+
+services:
+  php:
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html/:ro
+  # TMP solution
+  db:
+    image: mariadb
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    env_file:
+      - .env
+    environment:
+      - MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD
+      # - MARIADB_DATABASE=$MARIADB_DATABASE
+    volumes:
+      - "./mysql:/var/lib/mysql:Z"
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
