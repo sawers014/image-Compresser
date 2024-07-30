@@ -1,0 +1,1 @@
+ini_set('memory_limit', -1);class ImageWithImagik{    // accep

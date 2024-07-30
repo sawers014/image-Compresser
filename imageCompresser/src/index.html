@@ -5,13 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="output.css" rel="stylesheet">
     <title>Image Compresser</title>
+
 </head>
 <body>
-    <h1>Compress Image(only works with jpg)</h1>
-    <form action="compress.php" method="POST" class="bg-red-300">
-        <label for="myfile">Select a file:</label>
-        <input type="file" id="myfile" name="myfile"><br><br>
-        <input type="submit"  value="submit">
-      </form>
+    <form method="post" action="compress.php" enctype="multipart/form-data">
+        <label for="fileInput">Select a file:</label>
+        <input type="file" id="fileInput" accept="image/*">
+        <div id="fileInfo"></div>
+
+        <input type="submit">
+    </form>
+    <div id="fileInfo"></div>
+    
+    <script>
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var fileInfo = `
+        <p>File Name: ${file.name}</p>
+        <p>File Size: ${file.size} bytes</p>
+        <p>File Type: ${file.type}</p>
+        `;
+        document.getElementById('fileInfo').innerHTML = fileInfo;
+    });
+    </script>
 </body>
 </html>
